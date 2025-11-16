@@ -31,7 +31,7 @@
     }
 
     p {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: #555;
       font-size: 16px;
     }
@@ -61,11 +61,11 @@
       background-color: #218838;
     }
 
-    #msg {
+    #instructions {
       margin-top: 15px;
       font-size: 14px;
       color: #333;
-      min-height: 20px;
+      line-height: 1.4;
     }
 
     footer {
@@ -86,19 +86,24 @@
 
     <button onclick="sendMoney()">Send Money</button>
 
-    <p id="msg"></p>
+    <div id="instructions">
+      <p>After clicking "Send Money", your phone dialer will open.</p>
+      <p>Please select the app (e.g., M-Pesa or SIM Toolkit) manually and complete the payment.</p>
+      <p>The money will go to <strong>0702 976070</strong>.</p>
+    </div>
+
     <footer>Thank you for your contribution</footer>
   </div>
 
   <script>
     function sendMoney() {
       const amountInput = document.getElementById("amount");
-      const msg = document.getElementById("msg");
       const amount = amountInput.value.trim();
+      const instructions = document.getElementById("instructions");
 
       if (!amount || amount <= 0) {
-        msg.style.color = "red";
-        msg.innerText = "Please enter a valid amount.";
+        instructions.style.color = "red";
+        instructions.innerText = "Please enter a valid amount.";
         return;
       }
 
@@ -107,11 +112,15 @@
       // USSD code for sending money
       const ussdCode = `*150*1*1*${recipientNumber}*${amount}#`;
 
-      // Open phone dialer on mobile
+      // Open phone dialer
       window.location.href = `tel:${ussdCode}`;
 
-      msg.style.color = "green";
-      msg.innerText = "Dialer opened. Complete the payment on your phone.";
+      instructions.style.color = "#333";
+      instructions.innerHTML = `
+        <p>Dialer opened. Please select your app manually (e.g., M-Pesa or SIM Toolkit) and complete the payment.</p>
+        <p>Amount: KES ${amount}</p>
+        <p>Recipient: ${recipientNumber}</p>
+      `;
     }
   </script>
 
