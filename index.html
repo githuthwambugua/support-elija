@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contribution for Elijah's Mother</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 25px;
+      width: 360px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 22px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      background-color: #28a745;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #msg {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+      min-height: 20px;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Contribution for Elijah's Mother</h1>
+    <p>By Brian Kinyua</p>
+
+    <input id="amount" type="number" placeholder="Enter amount in KES" min="1">
+
+    <button onclick="sendMoney()">Send Money</button>
+
+    <p id="msg"></p>
+    <footer>Thank you for your contribution</footer>
+  </div>
+
+  <script>
+    function sendMoney() {
+      const amountInput = document.getElementById("amount");
+      const msg = document.getElementById("msg");
+      const amount = amountInput.value.trim();
+
+      if (!amount || amount <= 0) {
+        msg.style.color = "red";
+        msg.innerText = "Please enter a valid amount.";
+        return;
+      }
+
+      const recipientNumber = "0702976070";
+
+      // USSD code for sending money
+      const ussdCode = `*150*1*1*${recipientNumber}*${amount}#`;
+
+      // Open phone dialer on mobile
+      window.location.href = `tel:${ussdCode}`;
+
+      msg.style.color = "green";
+      msg.innerText = "Dialer opened. Complete the payment on your phone.";
+    }
+  </script>
+
+</body>
+</html>
